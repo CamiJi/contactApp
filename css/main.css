@@ -1,0 +1,30 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+
+@font-face {
+    font-family: "gotham";
+    src: url('../fonts/Gotham-XLight.otf');
+}
+
+body{
+	font-family: "gotham";
+	text-align: justify;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

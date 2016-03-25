@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>AppContactsAngularsJS</title>
+        <meta name="description" content="Une application de gestion de contacts dynamisée en AngularJS">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="css/main.css">
+
+        <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    </head>
+
+
+
+
+
+
+
+ 
+
+
+    <body ng-app="appContact">
+      <div class="container">
+
+        <section id="contactApp" ng-controller="contactCtrl">
+          <header id="header">
+
+            <h1>Carnet d'adresses</h1>
+
+            </br>
+
+            <div class="row">
+
+              <form class="col-xs-12 col-sm-6 col-md-8" id="addContactForm" ng-submit="addContact()">
+
+
+                <h3>Ajouter un contact</h3>
+                <div class="form-group">
+                  <label for="inputName1">Prénom</label>
+                  <input type="text" class="form-control" id="inputName2" placeholder="Camille" autofocus autocomplete="off" ng-model="newPrenom">
+                </div>
+
+                <div class="form-group">
+                  <label for="inputName2">Nom</label>
+                  <input type="text" class="form-control" id="inputName2" placeholder="Aubert" autocomplete="off" ng-model="newNom">
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail1">Email</label>
+                  <input type="email" class="form-control" id="inputEmail1" placeholder="camille.aubert@laposte.net" autocomplete="off" ng-model="newEmail">
+                </div>
+                <div class="form-group">
+                  <label for="inputTags">Tags</label>
+                  <input type="text" class="form-control" id="inputTags" placeholder="php" autocomplete="off" ng-model="newTags">
+                </div>
+                <div class="form-group">
+                  <label class="control-label">Insérer une photo de profil</label>
+                  <input id="file" name="file" type="file" file-model = "myFile" class="file" ng-model="newPhoto">
+                </div>
+                <div id="prev" class="form-group"></div>
+                <button type="submit" class="btn btn-default">Ajouter contact</button>
+              </form>
+
+            </div>
+
+            </br>
+            <h3>Liste des contacts</h3>
+            <section id="main">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <tr>
+                    <td>Prénom</td>
+                    <td>Nom</td> 
+                    <td>email</td>
+                    <td>Photo</td>
+                    <td>Tags</td>
+                    <td>Actions</td>
+                  </tr>
+                  <tr ng-repeat="contact in contacts">
+                    <td>{{contact.prenom}}</td>
+                    <td>{{contact.nom}}</td> 
+                    <td>{{contact.email}}</td>
+                    <td><img src="img/{{contact.photo}}" alt="photoContact" width="75px" height="75px"></td>
+                    <td><a href="">{{contact.tags}}</a></td>
+                    <td><a href="">Modifier</a></br><a href="" ng-click="removeContact($index)">Supprimer</a></td>
+                  </tr>                      
+                </table> 
+              </div>        
+            </section>
+
+
+
+
+
+          </header>
+        </section>
+
+   
+
+
+      </div>
+    
+        <!-- Début des scripts -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
+
+<!--    <script src="js/vendor/bootstrap.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script> -->
+
+        <script src="js/app.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
