@@ -25,47 +25,19 @@
 
 
     <body ng-app="appContact">
+
       <div class="container">
 
         <section id="contactApp" ng-controller="contactCtrl">
           <header id="header">
-
             <h1>Carnet d'adresses</h1>
+            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModalAdd">Ajouter contact</button>
 
             </br>
 
-            <div class="row">
-
-              <form class="col-xs-12 col-sm-6 col-md-8" id="addContactForm" ng-submit="addContact()">
 
 
-                <h3>Ajouter un contact</h3>
-                <div class="form-group">
-                  <label for="inputName1">Prénom</label>
-                  <input type="text" class="form-control" id="inputName2" placeholder="Camille" autofocus autocomplete="off" ng-model="newPrenom">
-                </div>
 
-                <div class="form-group">
-                  <label for="inputName2">Nom</label>
-                  <input type="text" class="form-control" id="inputName2" placeholder="Aubert" autocomplete="off" ng-model="newNom">
-                </div>
-                <div class="form-group">
-                  <label for="inputEmail1">Email</label>
-                  <input type="email" class="form-control" id="inputEmail1" placeholder="camille.aubert@laposte.net" autocomplete="off" ng-model="newEmail">
-                </div>
-                <div class="form-group">
-                  <label for="inputTags">Tags</label>
-                  <input type="text" class="form-control" id="inputTags" placeholder="php" autocomplete="off" ng-model="newTags">
-                </div>
-                <div class="form-group">
-                  <label class="control-label">Insérer une photo de profil</label>
-                  <input id="file" name="file" type="file" file-model = "myFile" class="file" ng-model="newPhoto">
-                </div>
-                <div id="prev" class="form-group"></div>
-                <button type="submit" class="btn btn-default">Ajouter contact</button>
-              </form>
-
-            </div>
 
             </br>
             <h3>Liste des contacts</h3>
@@ -86,7 +58,7 @@
                     <td>{{contact.email}}</td>
                     <td><img src="img/{{contact.photo}}" alt="photoContact" width="75px" height="75px"></td>
                     <td><a href="">{{contact.tags}}</a></td>
-                    <td><a href="">Modifier</a></br><a href="" ng-click="removeContact($index)">Supprimer</a></td>
+                    <td><a href="" data-toggle="modal" data-target="#myModalModify" ng-click="injectContact($index)">Modifier</a></br><a href="" ng-click="removeContact($index)">Supprimer</a></td>
                   </tr>                      
                 </table> 
               </div>        
@@ -94,24 +66,108 @@
 
 
 
+            <div class="modal fade" tabindex="-1" role="dialog" id="myModalAdd">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h3>Ajouter un contact</h3>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <form class="col-xs-12 col-sm-12 col-md-12" id="addContactForm" ng-submit="addContact()">
+                        
+                        <div class="form-group">
+                          <label for="inputName1">Prénom</label>
+                          <input type="text" class="form-control" id="inputName1" placeholder="Michel" autofocus autocomplete="off" ng-model="newPrenom">
+                        </div>
+
+                        <div class="form-group">
+                          <label for="inputName2">Nom</label>
+                          <input type="text" class="form-control" id="inputName2" placeholder="Topin" autocomplete="off" ng-model="newNom">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputEmail1">Email</label>
+                          <input type="email" class="form-control" id="inputEmail1" placeholder="mt@laposte.net" autocomplete="off" ng-model="newEmail">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputTags">Tags</label>
+                          <input type="text" class="form-control" id="inputTags" placeholder="php" autocomplete="off" ng-model="newTags">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Insérer une photo de profil</label>
+                          <input id="file" name="file" type="file" file-model = "myFile" class="file" ng-model="newPhoto">
+                        </div>
+                        <div id="prev" class="form-group"></div>
+                        <button type="submit" class="btn btn-default">Ajouter contact</button>
+                      </form> 
+                    </div>   
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+
+
+
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="myModalModify">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modifier la fiche de {{modifyPrenom}} {{modifyNom}} </h4>
+                  </div>
+                  <div class="modal-body">
+                    <form id="modifyContactForm" ng-submit="modifyContact()">
+                      <div class="form-group">
+                        <label for="modifyName1">Prénom</label>
+                        <input type="text" class="form-control" id="modifyName1" ng-model="modifyPrenom">
+                      </div>
+                      <div class="form-group">
+                        <label for="modifyName2">Nom</label>
+                        <input type="text" class="form-control" id="modifyName2" ng-model="modifyNom">
+                      </div>
+                        <div class="form-group">
+                          <label for="inputEmail1">Email</label>
+                          <input type="email" class="form-control" id="inputEmail1" ng-model="modifyEmail">
+                        </div>
+                        <div class="form-group">
+                          <label for="inputTags">Tags</label>
+                          <input type="text" class="form-control" id="inputTags" ng-model="modifyTags">
+                        </div>
+                        <div class="form-group">
+                          <label class="control-label">Insérer une photo de profil</label>
+                          <input id="file" name="file" type="file" file-model = "myFile" class="file" ng-model="modifyPhoto">
+                        </div>                      
+
+                      <button type="submit" class="btn btn-default">Modifier contact</button>
+                    </form>
+     
+                  </div>
+                  <div class="modal-footer">
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
 
           </header>
         </section>
-
-   
-
-
       </div>
     
         <!-- Début des scripts -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
 
-<!--    <script src="js/vendor/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <!--    <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/vendor/angular.min.js"></script> -->
 
         <script src="js/app.js"></script>
         <script src="js/main.js"></script>
+
     </body>
 </html>
