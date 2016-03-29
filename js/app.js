@@ -2,36 +2,65 @@
 
     app.controller('contactCtrl', function($scope) {
 
-    	$scope.contacts = [
-    		{
-    			nom : 'Topin',
-    			prenom : 'Michel',
-    			email : 'mt@laposte.net',
-    			photo: 'cam.jpg',
-    			tags: 'basket'
-    		},
-    		{
-    			nom : 'Robert',
-    			prenom : 'Durant',
-    			email : 'rdurant@gmail.net',
-    			photo: 'robert.jpg',
-    			tags: 'front end'
-    		}
-  		];
+      var fileInput = $('#fileInput');
+      var spanInputFile = $('#spanInputFile');
+      var divPhotoPrev = $('#divPhotoPrev');
+      var imageType = /image.*/;
+
+
+
+
+      $scope.contacts = [
+        {
+          nom : 'Topin',
+          prenom : 'Michel',
+          email : 'mt@laposte.net',
+          photo: 'img/cam.jpg',
+          tags: 'basket'
+        },
+        {
+          nom : 'Robert',
+          prenom : 'Durant',
+          email : 'rdurant@gmail.net',
+          photo: 'img/robert.jpg',
+          tags: 'front end'
+        }
+      ];
+
+
 
       // Fonction d'ajout de contact
-  		$scope.addContact = function () {
+      $scope.addContact = function() {
 
-  		
-  			$scope.contacts.push({
-  				nom : $scope.newNom,
-  				prenom : $scope.newPrenom,
-  				email : $scope.newEmail,
-  				photo : $scope.newPhoto,
-  				tags : $scope.newTags,
-  			})
+          var fileInput = $('#fileInput')[0].files[0];
+              
+          var charge=new FileReader();
+              
+          charge.readAsDataURL(fileInput);
 
-  		}
+          // On charge l'image
+          charge.onloadend = function(e){   
+
+                var newPhoto = e.target.result; 
+                // console.log(newPhoto);
+
+                // Puis on insert les données dans le tableau des contacts
+                $scope.contacts.push({
+                  nom : $scope.newNom,
+                  prenom : $scope.newPrenom,
+                  email : $scope.newEmail,
+                  photo : newPhoto,
+                  tags : $scope.newTags,
+                })
+
+                // console.log($scope.contacts);
+      
+                $('#myModalAdd').modal('hide');
+                
+          }
+
+
+      }
 
       // Fonction de suppression de contact
       $scope.removeContact = function (index) {
@@ -49,13 +78,15 @@
 
           $scope.index = [index];
 
+          $('#myModalAdd').modal('hide');
+
       }
 
       // Fonction de modification de contact
       $scope.modifyContact = function () {
 
           // alert ($scope.index);
-          
+
           $scope.contacts[$scope.index]['prenom'] = $scope.modifyPrenom;
           $scope.contacts[$scope.index]['nom'] = $scope.modifyNom;
           $scope.contacts[$scope.index]['email'] = $scope.modifyEmail;

@@ -14,16 +14,6 @@
 
         <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
-
-
-
-
-
-
-
- 
-
-
     <body ng-app="appContact">
 
       <div class="container">
@@ -31,20 +21,15 @@
         <section id="contactApp" ng-controller="contactCtrl">
           <header id="header">
             <h1>Carnet d'adresses</h1>
-            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModalAdd">Ajouter contact</button>
+            <button type="submit" class="btn btn-default" data-toggle="modal" data-target="#myModalAdd" >Ajouter un contact</button>
 
             </br>
 
-
-
-
-
-            </br>
             <h3>Liste des contacts</h3>
             <section id="main">
               <div class="table-responsive">
                 <table class="table table-striped">
-                  <tr>
+                  <tr id="contactsColumnsTitles">
                     <td>Prénom</td>
                     <td>Nom</td> 
                     <td>email</td>
@@ -56,7 +41,7 @@
                     <td>{{contact.prenom}}</td>
                     <td>{{contact.nom}}</td> 
                     <td>{{contact.email}}</td>
-                    <td><img src="img/{{contact.photo}}" alt="photoContact" width="75px" height="75px"></td>
+                    <td><img src="{{contact.photo}}" alt="photoContact" width="75px" height="75px"></td>
                     <td><a href="">{{contact.tags}}</a></td>
                     <td><a href="" data-toggle="modal" data-target="#myModalModify" ng-click="injectContact($index)">Modifier</a></br><a href="" ng-click="removeContact($index)">Supprimer</a></td>
                   </tr>                      
@@ -96,7 +81,9 @@
                         </div>
                         <div class="form-group">
                           <label class="control-label">Insérer une photo de profil</label>
-                          <input id="file" name="file" type="file" file-model = "myFile" class="file" ng-model="newPhoto">
+                          <input id="fileInput" name="file" type="file" file-model = "myFile" class="file" ng-model="newPhoto" ng-click="prepareAddPhoto(e)">
+                          <span class='bg-danger' id="spanInputFile"></span>
+                          <div id="divPhotoPrev" height="75px" width="75px"></div>
                         </div>
                         <div id="prev" class="form-group"></div>
                         <button type="submit" class="btn btn-default">Ajouter contact</button>
